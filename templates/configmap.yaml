@@ -18,8 +18,12 @@ data:
     [clients]
     internalsecret = {{ .Values.secrets.internalSecret }}
     [backend]
-    backends = https://{{ .Values.domain }}
+    backends = backend-1
     allowall = false
+    timeout = 10
+    connectionsperhost = 8
+    [backend-1]
+    url = https://{{ .Values.domain }}
     secret = {{ .Values.secrets.signalingSecret }}
     [nats]
     url = nats://{{ .Release.Name }}-nats:4222
@@ -28,3 +32,7 @@ data:
     url = {{ .Values.janusUrl }}
     maxstreambitrate = {{ .Values.talkMaxStreamBitrate }}
     maxscreenbitrate = {{ .Values.talkMaxScreenBitrate }}
+    [turn]
+    apikey = {{ .Values.secrets.turnSecret }}
+    secret = {{ .Values.secrets.turnSecret }}
+    servers = turn:{{ .Values.turnDomain }}:3478?transport=udp,turn:{{ .Values.turnDomain }}:3478?transport=tcp
