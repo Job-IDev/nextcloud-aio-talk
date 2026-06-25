@@ -17,18 +17,6 @@ spec:
           image: {{ .Values.images.signaling }}
           ports:
             - containerPort: 8080
-          readinessProbe:
-            httpGet:
-              path: /api/v1/stats
-              port: 8080
-            initialDelaySeconds: 5
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /api/v1/stats
-              port: 8080
-            initialDelaySeconds: 15
-            periodSeconds: 20
           volumeMounts:
             - name: config
               mountPath: /config/server.conf
