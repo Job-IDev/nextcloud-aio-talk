@@ -15,7 +15,6 @@ spec:
       containers:
         - name: signaling
           image: {{ .Values.images.signaling }}
-          command: ["signaling", "--config", "/config/server.conf"]
           ports:
             - containerPort: 8080
           readinessProbe:
